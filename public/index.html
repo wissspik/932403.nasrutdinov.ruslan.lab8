@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Доска объявлений купли и продажи — итоговый мини-проект."
+    />
+    <title>Находка — доска объявлений</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Перейти к объявлениям</a>
+
+    <header class="page-header">
+      <nav class="container topbar" aria-label="Основная навигация">
+        <a class="brand" href="/">Находка<span>.</span></a>
+        <p>Покупайте у людей рядом</p>
+        <button id="open-ad-form" class="button button--accent" type="button">Подать объявление</button>
+      </nav>
+      <div class="container hero">
+        <p class="eyebrow">Лабораторная работа №8 · вариант 13</p>
+        <h1>Вещи находят<br />новых хозяев</h1>
+        <p>Простая доска объявлений для покупки и продажи без лишнего шума.</p>
+      </div>
+    </header>
+
+    <main id="content" class="container layout">
+      <aside class="filters" aria-labelledby="filters-title">
+        <div class="filters__heading">
+          <h2 id="filters-title">Фильтры</h2>
+          <button id="reset-filters" class="text-button" type="button">Сбросить</button>
+        </div>
+        <form id="filters-form">
+          <label for="search">Поиск по заголовку</label>
+          <input id="search" name="q" type="search" placeholder="Например, велосипед" />
+
+          <label for="category-filter">Категория</label>
+          <select id="category-filter" name="category">
+            <option value="">Все категории</option>
+          </select>
+
+          <label for="status-filter">Статус</label>
+          <select id="status-filter" name="status">
+            <option value="">Все статусы</option>
+            <option value="active">Активно</option>
+            <option value="sold">Продано</option>
+            <option value="archived">В архиве</option>
+          </select>
+
+          <fieldset>
+            <legend>Цена, ₽</legend>
+            <div class="price-row">
+              <input id="min-price" name="minPrice" type="number" min="0" step="0.01" placeholder="От" aria-label="Минимальная цена" />
+              <input id="max-price" name="maxPrice" type="number" min="0" step="0.01" placeholder="До" aria-label="Максимальная цена" />
+            </div>
+          </fieldset>
+          <button class="button" type="submit">Показать</button>
+        </form>
+      </aside>
+
+      <section class="catalog" aria-labelledby="catalog-title">
+        <div class="catalog__heading">
+          <div>
+            <p class="eyebrow eyebrow--dark">Каталог</p>
+            <h2 id="catalog-title">Свежие объявления</h2>
+          </div>
+          <div class="summary" aria-label="Статистика выборки">
+            <span><strong id="total-count">0</strong> всего</span>
+            <span><strong id="active-count">0</strong> активных</span>
+          </div>
+        </div>
+
+        <p id="message" class="message" role="status" aria-live="polite"></p>
+        <div id="ads-list" class="ads-grid"></div>
+        <p id="empty-state" class="empty-state" hidden>
+          По выбранным условиям ничего не найдено. Измените фильтры или создайте объявление.
+        </p>
+      </section>
+    </main>
+
+    <dialog id="ad-dialog" aria-labelledby="dialog-title">
+      <form id="ad-form">
+        <div class="dialog-heading">
+          <div>
+            <p class="eyebrow eyebrow--dark">Объявление</p>
+            <h2 id="dialog-title">Новое объявление</h2>
+          </div>
+          <button id="close-dialog" class="icon-button" type="button" aria-label="Закрыть окно">×</button>
+        </div>
+
+        <input id="ad-id" type="hidden" />
+        <label for="ad-title">Заголовок</label>
+        <input id="ad-title" maxlength="120" required />
+
+        <label for="ad-description">Описание</label>
+        <textarea id="ad-description" rows="4" maxlength="1000" required></textarea>
+
+        <div class="form-grid">
+          <div>
+            <label for="ad-price">Цена, ₽</label>
+            <input id="ad-price" type="number" min="0" step="0.01" required />
+          </div>
+          <div>
+            <label for="ad-category">Категория</label>
+            <input id="ad-category" list="category-list" maxlength="60" required />
+            <datalist id="category-list"></datalist>
+          </div>
+        </div>
+
+        <label for="ad-status">Статус</label>
+        <select id="ad-status" required>
+          <option value="active">Активно</option>
+          <option value="sold">Продано</option>
+          <option value="archived">В архиве</option>
+        </select>
+
+        <div class="dialog-actions">
+          <button id="cancel-dialog" class="button button--secondary" type="button">Отмена</button>
+          <button class="button" type="submit">Сохранить</button>
+        </div>
+      </form>
+    </dialog>
+
+    <footer>
+      <div class="container footer-row">
+        <strong>Находка.</strong>
+        <p>Руслан Насрутдинов · группа 932403 · 2026</p>
+      </div>
+    </footer>
+  </body>
+</html>
