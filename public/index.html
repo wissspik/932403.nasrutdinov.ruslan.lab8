@@ -8,8 +8,8 @@
       content="Доска объявлений купли и продажи — итоговый мини-проект."
     />
     <title>Находка — доска объявлений</title>
-    <link rel="stylesheet" href="/style.css?v=2" />
-    <script src="/app.js?v=2" defer></script>
+    <link rel="stylesheet" href="/style.css?v=3" />
+    <script src="/app.js?v=3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#content">Перейти к объявлениям</a>
@@ -74,7 +74,16 @@
         </div>
 
         <p id="message" class="message" role="status" aria-live="polite"></p>
-        <div id="ads-list" class="ads-grid"></div>
+        <div id="ads-list" class="ads-grid" aria-live="polite">
+          <article class="ad-card ad-card--fallback">
+            <div class="ad-card__visual"><span class="ad-card__icon" aria-hidden="true">🏠</span><span class="status status--active">Активно</span></div>
+            <div class="ad-card__body"><div class="ad-card__meta"><span>Дом</span><strong class="ad-card__price">1 800 ₽</strong></div><h3>Настольная лампа</h3><p class="ad-card__description">Тёплый свет, три режима яркости, отличное состояние.</p></div>
+          </article>
+          <article class="ad-card ad-card--fallback">
+            <div class="ad-card__visual"><span class="ad-card__icon" aria-hidden="true">📚</span><span class="status status--active">Активно</span></div>
+            <div class="ad-card__body"><div class="ad-card__meta"><span>Книги</span><strong class="ad-card__price">900 ₽</strong></div><h3>Учебник по JavaScript</h3><p class="ad-card__description">Современное издание, есть аккуратные заметки карандашом.</p></div>
+          </article>
+        </div>
         <p id="empty-state" class="empty-state" hidden>
           По выбранным условиям ничего не найдено. Измените фильтры или создайте объявление.
         </p>
