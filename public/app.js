@@ -41,6 +41,7 @@ function createAdCard(ad) {
   const card = document.createElement("article");
   card.className = "ad-card";
   card.dataset.id = ad.id;
+  card.style.cssText = "display:flex;visibility:visible;opacity:1;min-height:260px;flex-direction:column;background:#fff;color:#1a1d27;border:1px solid #dedee5;border-radius:17px;box-shadow:0 16px 42px rgb(26 29 39 / 10%);overflow:hidden";
 
   if (ad.status === "sold") {
     const ribbon = document.createElement("span");
@@ -100,6 +101,7 @@ async function loadAds() {
   try {
     const query = filtersToQuery();
     const ads = await api(`/api/ads${query ? `?${query}` : ""}`);
+    adsList.style.cssText = "display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;min-width:0";
     adsList.replaceChildren(...ads.map(createAdCard));
     document.getElementById("total-count").textContent = String(ads.length);
     document.getElementById("active-count").textContent = String(
