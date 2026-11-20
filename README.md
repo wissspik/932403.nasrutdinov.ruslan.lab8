@@ -75,6 +75,28 @@ npm start
 
 Откройте `http://localhost:3000`. База создаётся автоматически в `data/ads.db`.
 
+## Публичная ссылка
+
+**Последний выданный Cloudflare Quick Tunnel:** [https://sprint-former-periodic-answers.trycloudflare.com](https://sprint-former-periodic-answers.trycloudflare.com)
+
+Quick Tunnel временный и работает только пока запущен процесс `cloudflared`. Эта ссылка была выдана при запуске, но сейчас Cloudflare отвечает ошибкой `530`; запустите новый туннель по инструкции ниже, чтобы получить актуальный адрес.
+
+### Запуск Cloudflare Tunnel
+
+Установите `cloudflared`, затем из папки проекта выполните:
+
+```powershell
+npm run tunnel
+```
+
+Либо в Git Bash:
+
+```bash
+bash scripts/start-cloudflare-tunnel.sh
+```
+
+Приложение будет запущено на порту `3008`. Новый публичный адрес появится в выводе `cloudflared`; он действует, пока запущены приложение и туннель, и меняется при следующем запуске.
+
 ## Тесты
 
 ```bash
