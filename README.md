@@ -77,9 +77,7 @@ npm start
 
 ## Публичная ссылка
 
-**Последний выданный Cloudflare Quick Tunnel:** [https://sprint-former-periodic-answers.trycloudflare.com](https://sprint-former-periodic-answers.trycloudflare.com)
-
-Quick Tunnel временный и работает только пока запущен процесс `cloudflared`. Эта ссылка была выдана при запуске, но сейчас Cloudflare отвечает ошибкой `530`; запустите новый туннель по инструкции ниже, чтобы получить актуальный адрес.
+**Активной публичной ссылки сейчас нет.** Старая ссылка больше не подключена к запущенному туннелю и показывает Cloudflare Error 1033. Quick Tunnel не имеет постоянного адреса: новый URL появится в выводе `cloudflared` только после успешного подключения к Cloudflare.
 
 ### Запуск Cloudflare Tunnel
 
