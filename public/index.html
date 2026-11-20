@@ -8,8 +8,8 @@
       content="Доска объявлений купли и продажи — итоговый мини-проект."
     />
     <title>Находка — доска объявлений</title>
-    <link rel="stylesheet" href="/style.css?v=3" />
-    <script src="/app.js?v=4" defer></script>
+    <link rel="stylesheet" href="/style.css?v=5" />
+    <script src="/app.js?v=5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#content">Перейти к объявлениям</a>
@@ -18,7 +18,7 @@
       <nav class="container topbar" aria-label="Основная навигация">
         <a class="brand" href="/">Находка<span>.</span></a>
         <p>Покупайте у людей рядом</p>
-        <button id="open-ad-form" class="button button--accent" type="button">Подать объявление</button>
+        <button id="open-listing-form" class="button button--accent" type="button">Подать объявление</button>
       </nav>
       <div class="container hero">
         <p class="eyebrow">Лабораторная работа №8 · вариант 13</p>
@@ -74,24 +74,15 @@
         </div>
 
         <p id="message" class="message" role="status" aria-live="polite"></p>
-        <div id="ads-list" class="ads-grid" aria-live="polite">
-          <article class="ad-card ad-card--fallback">
-            <div class="ad-card__visual"><span class="ad-card__icon" aria-hidden="true">🏠</span><span class="status status--active">Активно</span></div>
-            <div class="ad-card__body"><div class="ad-card__meta"><span>Дом</span><strong class="ad-card__price">1 800 ₽</strong></div><h3>Настольная лампа</h3><p class="ad-card__description">Тёплый свет, три режима яркости, отличное состояние.</p></div>
-          </article>
-          <article class="ad-card ad-card--fallback">
-            <div class="ad-card__visual"><span class="ad-card__icon" aria-hidden="true">📚</span><span class="status status--active">Активно</span></div>
-            <div class="ad-card__body"><div class="ad-card__meta"><span>Книги</span><strong class="ad-card__price">900 ₽</strong></div><h3>Учебник по JavaScript</h3><p class="ad-card__description">Современное издание, есть аккуратные заметки карандашом.</p></div>
-          </article>
-        </div>
+        <div id="listings-list" class="listings-grid" aria-live="polite"></div>
         <p id="empty-state" class="empty-state" hidden>
           По выбранным условиям ничего не найдено. Измените фильтры или создайте объявление.
         </p>
       </section>
     </main>
 
-    <dialog id="ad-dialog" aria-labelledby="dialog-title">
-      <form id="ad-form">
+    <dialog id="listing-dialog" aria-labelledby="dialog-title">
+      <form id="listing-form">
         <div class="dialog-heading">
           <div>
             <p class="eyebrow eyebrow--dark">Объявление</p>
@@ -100,27 +91,27 @@
           <button id="close-dialog" class="icon-button" type="button" aria-label="Закрыть окно">×</button>
         </div>
 
-        <input id="ad-id" type="hidden" />
-        <label for="ad-title">Заголовок</label>
-        <input id="ad-title" maxlength="120" required />
+        <input id="listing-id" type="hidden" />
+        <label for="listing-title">Заголовок</label>
+        <input id="listing-title" maxlength="120" required />
 
-        <label for="ad-description">Описание</label>
-        <textarea id="ad-description" rows="4" maxlength="1000" required></textarea>
+        <label for="listing-description">Описание</label>
+        <textarea id="listing-description" rows="4" maxlength="1000" required></textarea>
 
         <div class="form-grid">
           <div>
-            <label for="ad-price">Цена, ₽</label>
-            <input id="ad-price" type="number" min="0" step="0.01" required />
+            <label for="listing-price">Цена, ₽</label>
+            <input id="listing-price" type="number" min="0" step="0.01" required />
           </div>
           <div>
-            <label for="ad-category">Категория</label>
-            <input id="ad-category" list="category-list" maxlength="60" required />
+            <label for="listing-category">Категория</label>
+            <input id="listing-category" list="category-list" maxlength="60" required />
             <datalist id="category-list"></datalist>
           </div>
         </div>
 
-        <label for="ad-status">Статус</label>
-        <select id="ad-status" required>
+        <label for="listing-status">Статус</label>
+        <select id="listing-status" required>
           <option value="active">Активно</option>
           <option value="sold">Продано</option>
           <option value="archived">В архиве</option>
