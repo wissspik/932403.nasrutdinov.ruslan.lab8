@@ -59,6 +59,7 @@ legend { margin-bottom: 8px; }
 .summary strong { color: var(--ink); }
 .message { min-height: 24px; margin: 18px 0; color: var(--primary-dark); font-weight: 750; }
 
+.ads-grid > .ad-card { display: flex !important; visibility: visible !important; opacity: 1 !important; min-height: 260px; }
 .ads-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .ad-card { position: relative; display: flex; min-width: 0; flex-direction: column; overflow: hidden; border: 1px solid var(--border); border-radius: 17px; background: var(--surface); box-shadow: var(--shadow); }
 .ad-card__visual { display: flex; align-items: flex-start; justify-content: space-between; min-height: 115px; padding: 18px; background: linear-gradient(135deg, #e7e6ff, #f2edff); }
