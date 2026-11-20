@@ -3,14 +3,14 @@
 const statusNames = { active: "Активно", sold: "Продано", archived: "В архиве" };
 const categoryIcons = { Дом: "🏠", Книги: "📚", Спорт: "🚲", Электроника: "⌨️" };
 
-const adsList = document.getElementById("ads-list");
+const adsList = document.getElementById("listings-list");
 const filtersForm = document.getElementById("filters-form");
 const categoryFilter = document.getElementById("category-filter");
 const datalist = document.getElementById("category-list");
 const message = document.getElementById("message");
 const emptyState = document.getElementById("empty-state");
-const dialog = document.getElementById("ad-dialog");
-const adForm = document.getElementById("ad-form");
+const dialog = document.getElementById("listing-dialog");
+const adForm = document.getElementById("listing-form");
 const dialogTitle = document.getElementById("dialog-title");
 
 async function api(url, options) {
@@ -39,9 +39,8 @@ function createButton(label, action, danger = false) {
 
 function createAdCard(ad) {
   const card = document.createElement("article");
-  card.className = "ad-card";
+  card.className = "listing-card";
   card.dataset.id = ad.id;
-  card.style.cssText = "display:flex;visibility:visible;opacity:1;min-height:260px;flex-direction:column;background:#fff;color:#1a1d27;border:1px solid #dedee5;border-radius:17px;box-shadow:0 16px 42px rgb(26 29 39 / 10%);overflow:hidden";
 
   if (ad.status === "sold") {
     const ribbon = document.createElement("span");
@@ -51,9 +50,9 @@ function createAdCard(ad) {
   }
 
   const visual = document.createElement("div");
-  visual.className = "ad-card__visual";
+  visual.className = "listing-card__visual";
   const icon = document.createElement("span");
-  icon.className = "ad-card__icon";
+  icon.className = "listing-card__icon";
   icon.setAttribute("aria-hidden", "true");
   icon.textContent = categoryIcons[ad.category] || "📦";
   const status = document.createElement("span");
@@ -62,20 +61,20 @@ function createAdCard(ad) {
   visual.append(icon, status);
 
   const body = document.createElement("div");
-  body.className = "ad-card__body";
+  body.className = "listing-card__body";
   const meta = document.createElement("div");
-  meta.className = "ad-card__meta";
+  meta.className = "listing-card__meta";
   const category = document.createElement("span");
   category.textContent = ad.category;
   const price = document.createElement("strong");
-  price.className = "ad-card__price";
+  price.className = "listing-card__price";
   price.textContent = formatPrice(ad.price);
   meta.append(category, price);
 
   const heading = document.createElement("h3");
   heading.textContent = ad.title;
   const description = document.createElement("p");
-  description.className = "ad-card__description";
+  description.className = "listing-card__description";
   description.textContent = ad.description;
 
   const controls = document.createElement("div");
@@ -101,7 +100,6 @@ async function loadAds() {
   try {
     const query = filtersToQuery();
     const ads = await api(`/api/ads${query ? `?${query}` : ""}`);
-    adsList.style.cssText = "display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;min-width:0";
     adsList.replaceChildren(...ads.map(createAdCard));
     document.getElementById("total-count").textContent = String(ads.length);
     document.getElementById("active-count").textContent = String(
@@ -131,22 +129,22 @@ async function loadCategories(selected = "") {
 
 function openCreateDialog() {
   adForm.reset();
-  document.getElementById("ad-id").value = "";
-  document.getElementById("ad-status").value = "active";
+  document.getElementById("listing-id").value = "";
+  document.getElementById("listing-status").value = "active";
   dialogTitle.textContent = "Новое объявление";
   dialog.showModal();
-  document.getElementById("ad-title").focus();
+  document.getElementById("listing-title").focus();
 }
 
 async function openEditDialog(id) {
   try {
     const ad = await api(`/api/ads/${id}`);
-    document.getElementById("ad-id").value = ad.id;
-    document.getElementById("ad-title").value = ad.title;
-    document.getElementById("ad-description").value = ad.description;
-    document.getElementById("ad-price").value = ad.price;
-    document.getElementById("ad-category").value = ad.category;
-    document.getElementById("ad-status").value = ad.status;
+    document.getElementById("listing-id").value = ad.id;
+    document.getElementById("listing-title").value = ad.title;
+    document.getElementById("listing-description").value = ad.description;
+    document.getElementById("listing-price").value = ad.price;
+    document.getElementById("listing-category").value = ad.category;
+    document.getElementById("listing-status").value = ad.status;
     dialogTitle.textContent = "Редактировать объявление";
     dialog.showModal();
   } catch (error) {
@@ -156,13 +154,13 @@ async function openEditDialog(id) {
 
 adForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const id = document.getElementById("ad-id").value;
+  const id = document.getElementById("listing-id").value;
   const payload = {
-    title: document.getElementById("ad-title").value,
-    description: document.getElementById("ad-description").value,
-    price: Number(document.getElementById("ad-price").value),
-    category: document.getElementById("ad-category").value,
-    status: document.getElementById("ad-status").value,
+    title: document.getElementById("listing-title").value,
+    description: document.getElementById("listing-description").value,
+    price: Number(document.getElementById("listing-price").value),
+    category: document.getElementById("listing-category").value,
+    status: document.getElementById("listing-status").value,
   };
 
   try {
@@ -182,7 +180,7 @@ adForm.addEventListener("submit", async (event) => {
 
 adsList.addEventListener("click", async (event) => {
   const button = event.target.closest("button[data-action]");
-  const id = button?.closest(".ad-card")?.dataset.id;
+  const id = button?.closest(".listing-card")?.dataset.id;
   if (!button || !id) return;
 
   if (button.dataset.action === "edit") {
@@ -210,7 +208,7 @@ document.getElementById("reset-filters").addEventListener("click", () => {
   filtersForm.reset();
   loadAds();
 });
-document.getElementById("open-ad-form").addEventListener("click", openCreateDialog);
+document.getElementById("open-listing-form").addEventListener("click", openCreateDialog);
 document.getElementById("close-dialog").addEventListener("click", () => dialog.close());
 document.getElementById("cancel-dialog").addEventListener("click", () => dialog.close());
 
